@@ -1,0 +1,6 @@
+{
+    "entity.smp_mod.grave": "Grab",
+  "item.smp_mod.grappling_hook": "Enterhaken",
+  "item.smp_mod.grappling_hook.tooltip": "Ein Item um sich schneller fortzubewegen und Dinge zu erklimmen.",
+  "death.attack.generic": "%1$s's Dummy wurde waehrend seiner Abwesenheit gekillt."
+}

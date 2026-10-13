@@ -1,0 +1,6 @@
+{
+  "entity.smp_mod.grave":"Grave",
+  "item.smp_mod.grappling_hook": "Grapplinghook",
+  "item.smp_mod.grappling_hook.tooltip": "An item to move faster and to  climb things.",
+  "death.attack.generic": "%1$s's Dummy was slain while he was absent."
+}
