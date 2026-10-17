@@ -36,22 +36,43 @@ public class HeartsRenderer {
             player.setAttached(SMP_Mod.PLAYER_DATA,playerData);
         }
 
-        if(playerData.hearts == 3){
+        if(playerData.hearts == 5){
             drawLowerLeftHeart(guiGraphicsExtractor,pathCyanHeart);
             drawLowerRightHeart(guiGraphicsExtractor,pathCyanHeart);
             drawUpperHeart(guiGraphicsExtractor,pathCyanHeart);
+            drawUpperLeftHeart(guiGraphicsExtractor,pathCyanHeart);
+            drawUpperRightHeart(guiGraphicsExtractor,pathCyanHeart);
+
+        }else if(playerData.hearts == 4){
+            drawLowerLeftHeart(guiGraphicsExtractor,pathCyanHeart);
+            drawLowerRightHeart(guiGraphicsExtractor,pathCyanHeart);
+            drawUpperHeart(guiGraphicsExtractor,pathCyanHeart);
+            drawUpperLeftHeart(guiGraphicsExtractor,pathLostHeart);
+            drawUpperRightHeart(guiGraphicsExtractor,pathCyanHeart);
+        }else if(playerData.hearts == 3){
+            drawLowerLeftHeart(guiGraphicsExtractor,pathCyanHeart);
+            drawLowerRightHeart(guiGraphicsExtractor,pathCyanHeart);
+            drawUpperHeart(guiGraphicsExtractor,pathLostHeart);
+            drawUpperLeftHeart(guiGraphicsExtractor,pathLostHeart);
+            drawUpperRightHeart(guiGraphicsExtractor,pathCyanHeart);
         }else if(playerData.hearts == 2){
             drawLowerLeftHeart(guiGraphicsExtractor,pathCyanHeart);
             drawLowerRightHeart(guiGraphicsExtractor,pathCyanHeart);
             drawUpperHeart(guiGraphicsExtractor,pathLostHeart);
+            drawUpperLeftHeart(guiGraphicsExtractor,pathLostHeart);
+            drawUpperRightHeart(guiGraphicsExtractor,pathLostHeart);
         }else if(playerData.hearts == 1){
-            drawLowerLeftHeart(guiGraphicsExtractor,pathCyanHeart);
-            drawLowerRightHeart(guiGraphicsExtractor,pathLostHeart);
+            drawLowerLeftHeart(guiGraphicsExtractor,pathLostHeart);
+            drawLowerRightHeart(guiGraphicsExtractor,pathCyanHeart);
             drawUpperHeart(guiGraphicsExtractor,pathLostHeart);
+            drawUpperLeftHeart(guiGraphicsExtractor,pathLostHeart);
+            drawUpperRightHeart(guiGraphicsExtractor,pathLostHeart);
         }else if(playerData.hearts == 0){
             drawLowerLeftHeart(guiGraphicsExtractor,pathLostHeart);
             drawLowerRightHeart(guiGraphicsExtractor,pathLostHeart);
             drawUpperHeart(guiGraphicsExtractor,pathLostHeart);
+            drawUpperLeftHeart(guiGraphicsExtractor,pathLostHeart);
+            drawUpperRightHeart(guiGraphicsExtractor,pathLostHeart);
         }
 
         if(playerData.inFight>0){
@@ -98,6 +119,66 @@ public class HeartsRenderer {
         int screenHeight = window.getGuiScaledHeight();
         int heartSize = 12;
         int x = screenWidth/2-heartSize/2;
+        int y = screenHeight-50-heartSize;
+
+        guiGraphicsExtractor.blit(
+                RenderPipelines.GUI_TEXTURED,
+                imgLocation,
+                x,
+                y,
+                0,
+                0,
+                heartSize,
+                heartSize,
+                12,
+                12
+
+
+
+        );
+
+    }
+
+    public static void drawUpperLeftHeart(GuiGraphicsExtractor guiGraphicsExtractor, String path){
+
+        Identifier imgLocation = Identifier.fromNamespaceAndPath(SMP_Mod.MOD_ID,path);
+
+        Window window = Minecraft.getInstance().getWindow();
+
+        int screenWidth = window.getGuiScaledWidth();
+        int screenHeight = window.getGuiScaledHeight();
+        int heartSize = 12;
+        int x = (screenWidth/2-heartSize/2)-12;
+        int y = screenHeight-50-heartSize;
+
+        guiGraphicsExtractor.blit(
+                RenderPipelines.GUI_TEXTURED,
+                imgLocation,
+                x,
+                y,
+                0,
+                0,
+                heartSize,
+                heartSize,
+                12,
+                12
+
+
+
+        );
+
+    }
+
+    public static void drawUpperRightHeart(GuiGraphicsExtractor guiGraphicsExtractor, String path){
+
+        Identifier imgLocation = Identifier.fromNamespaceAndPath(SMP_Mod.MOD_ID,path);
+
+        Window window = Minecraft.getInstance().getWindow();
+
+        int screenWidth = window.getGuiScaledWidth();
+        int screenHeight = window.getGuiScaledHeight();
+        int heartSize = 12;
+        int x = (screenWidth/2-heartSize/2)+12;
         int y = screenHeight-50-heartSize;
 
         guiGraphicsExtractor.blit(

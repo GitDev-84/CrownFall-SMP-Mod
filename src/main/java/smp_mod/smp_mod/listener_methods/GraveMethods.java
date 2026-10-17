@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundEntityEventPacket;
 import net.minecraft.network.protocol.game.ClientboundSetExperiencePacket;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,6 +24,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -136,10 +140,24 @@ public class GraveMethods {
                 if(playerDataKiller == null){
                     playerDataKiller = new PlayerData();
                 }
+
+
                 playerKiller.setAttached(SMP_Mod.PLAYER_DATA,new PlayerData(playerDataKiller.hearts,0,32, playerDataKiller.gotHitByUUID));
                 ServerPlayNetworking.send(playerKiller, new SyncHeartsPayload(playerKiller.getAttached(SMP_Mod.PLAYER_DATA)));
                 if(playerData.hearts >0){
                     newHearts--;
+                    AttributeInstance attackDamage = player.getAttribute(Attributes.ATTACK_DAMAGE);
+
+                    attackDamage.removeModifier(Identifier.fromNamespaceAndPath("smp_mod", "strength_modifier"));
+
+                    AttributeModifier modifier = new AttributeModifier(
+                            Identifier.fromNamespaceAndPath("smp_mod", "strength_modifier"),
+                            (5.0-newHearts)*0.25,
+                            AttributeModifier.Operation.ADD_VALUE
+
+                    );
+
+                    attackDamage.addPermanentModifier(modifier);
                     serverLevel.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getName().toString() + " lost one of their hearts to " + playerKiller.getName().getString() + "!"), false);
 
 

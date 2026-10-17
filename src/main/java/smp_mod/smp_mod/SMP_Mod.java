@@ -20,6 +20,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -32,6 +33,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -185,14 +187,14 @@ public class SMP_Mod implements ModInitializer {
 
 
 		});
+		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
+			newPlayer.level().getServer().execute(() -> {
+				PlayerData playerData = newPlayer.getAttached(SMP_Mod.PLAYER_DATA);
+				if (playerData != null) {
+					ServerPlayNetworking.send(newPlayer, new SyncHeartsPayload(playerData));
 
-		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive)->{
-
-			PlayerData playerData = newPlayer.getAttached(SMP_Mod.PLAYER_DATA);
-			if (playerData != null) {
-				ServerPlayNetworking.send(newPlayer, new SyncHeartsPayload(playerData));
-			}
-
+				}
+			});
 		});
 
 		UseItemCallback.EVENT.register((Player player, Level level, InteractionHand hand) -> {

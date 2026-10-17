@@ -46,7 +46,7 @@ public class PlayerData {
     }
 
     public PlayerData() {
-        this.hearts = 3;
+        this.hearts = 5;
         this.inFight = 0;
         this.enderPearlsToUse = 32;
         this.gotHitByUUID = "";

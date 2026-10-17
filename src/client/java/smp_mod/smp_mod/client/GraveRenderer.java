@@ -14,7 +14,7 @@ public class GraveRenderer extends LivingEntityRenderer<GraveEntity, GraveRender
             Identifier.fromNamespaceAndPath("smp_mod", "textures/entity/grave/grave.png");
 
     public GraveRenderer(EntityRendererProvider.Context context) {
-        super(context, new GraveModel(context.bakeLayer(GraveModel.LAYER_LOCATION)), 1.5F);
+        super(context, new GraveModel(context.bakeLayer(GraveModel.LAYER_LOCATION)), 0.75F);
     }
     @Override
     public GraveRenderState createRenderState() {
@@ -33,5 +33,9 @@ public class GraveRenderer extends LivingEntityRenderer<GraveEntity, GraveRender
     @Override
     protected @Nullable Component getNameTag(GraveEntity entity) {
         return null;
-    } 
+    }
+    @Override
+    protected void scale(GraveRenderState state, com.mojang.blaze3d.vertex.PoseStack poseStack) {
+        poseStack.scale(4F, 4F, 4F);
+    }
 }
